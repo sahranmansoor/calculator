@@ -1,3 +1,31 @@
+def tokenize(s):
+    tokens = []
+
+    i = 0
+    l = len(s)
+
+    while i < l:
+        cc = s[i]
+
+        if cc.isspace():
+            i += 1
+        elif cc.isdigit() or cc == ".":
+            n_str = ""
+            while i < l and ( s[i].isdigit() or s[i] == "."):
+                n_str += s[i]
+                i += 1
+            n = float(n_str) if "." in n_str else int(n_str)
+            tokens.append(("NUMBER", n))
+        elif cc == "+" or cc == "-" or cc == "/" or cc == "*":
+            tokens.append(("OPERATION", cc))
+            i += 1
+        elif cc == "(" or cc == ")":
+            tokens.append(("SYMBOL", cc))
+        else:
+            raise SyntaxError(f"unknown symbol: {cc}")
+    tokens.append(("EOF", None))
+    return tokens
+
 def parse(x):
     tokens = x.split()
     
