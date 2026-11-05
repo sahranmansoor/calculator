@@ -37,11 +37,26 @@ def eval(op, x, y):
         else:
             return "divide by zero not allowed"
 
+def main():
+    print("Type 'exit' to quit.\n")
+    
+    while True:
+        try:
+            text = input('calc > ')
+        except (EOFError, KeyboardInterrupt):
+            break
 
+        text = text.strip()
 
+        if not text:
+            continue
 
-x = input("write an expression to evalvate or exit to exit")
+        if text.lower() == 'exit':
+            print("Exiting...")
+            break
 
-ans = parse(x)
+        ans = parse(text)
+        print(f"= {ans}")
 
-print(ans)
+if __name__ == '__main__':
+    main()
